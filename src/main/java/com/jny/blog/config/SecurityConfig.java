@@ -23,10 +23,10 @@ public class SecurityConfig {
 	@Autowired
 	private PrincipalDetailService principalDetailService;
 	
-	@Bean
-	public AuthenticationManager authenticationManagerBean() throws Exception{
-		return authenticationManagerBean();
-	}
+	/*
+	 * @Bean public AuthenticationManager authenticationManagerBean() throws
+	 * Exception{ return authenticationManagerBean(); }
+	 */
 	
 	
 	@Bean // ioc가 됨

@@ -28,8 +28,9 @@ public class UserApiController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private AuthenticationManager authenticationManager;
+	/*
+	 * @Autowired private AuthenticationManager authenticationManager;
+	 */
 
 	@PostMapping("/auth/joinProc")
 	public ResponseDTO<Integer> save(@RequestBody User user) { //@RequestBody -> json데이터 받기 위함, 없으면 key=value 형태로 받음 MINE: x-www-form-urlencoded
@@ -46,8 +47,11 @@ public class UserApiController {
 		//세션 값 직접 변경
 		
 		//세션등록
-		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+		/*
+		 * Authentication authentication = authenticationManager.authenticate(new
+		 * UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+		 * SecurityContextHolder.getContext().setAuthentication(authentication);
+		 */
 		
 		return new ResponseDTO<Integer>(HttpStatus.OK.value(),1);
 	}
