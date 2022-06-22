@@ -29,8 +29,14 @@ let index={
 			dataType: "json" //요청을 서버로 해서 응답이 왔을 때 기본적으로 문자열로 오는데 생긴게 json이라면 자바스크립트 오브젝트로 변경
 		}).done(function(resp){
 			//console.log(resp);
-			alert("회원가입 완료");
-			location.href="/";
+			if(resp.status===500){
+				alert("회원가입 실패");
+			}else{
+				alert("회원가입 완료");
+				location.href="/";
+			}
+			
+			
 		}).fail(function(error){
 			alert(JSON.stringify(error));
 		}); 

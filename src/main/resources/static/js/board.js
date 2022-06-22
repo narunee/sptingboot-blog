@@ -11,6 +11,10 @@ let index={
 		$("#btn-update").on("click",()=>{//function(){}대신 ()=>{}를 사용한 이유: this를 바인딩 하기 위해서
 			this.update();
 		});
+		
+		$("#btn-reply-save").on("click",()=>{//function(){}대신 ()=>{}를 사용한 이유: this를 바인딩 하기 위해서
+			this.replySave();
+		});
 	},
 	
 	save: function(){
@@ -75,6 +79,48 @@ let index={
 			alert("글 수정 완료");
 			location.href="/";
 		}).fail(function(error){
+			alert(JSON.stringify(error));
+		}); 
+	},
+	
+	replySave: function(){
+		let data={
+			userid:$("#userid").val(),
+			boardid:$("#boardid").val(),
+			content:$("#reply-content").val()
+		};
+		
+		//let boardid=$("#boardid").val();
+		
+		//console.log(boardid);
+		$.ajax({
+			type:"post",
+			url:`/api/board/${data.boardid}/reply`,
+			data: JSON.stringify(data), //http body 데이터
+			contentType:"application/json; charset=utf-8", //body 데이터가 어떤 타입인지 (mime)
+			dataType: "json" //요청을 서버로 해서 응답이 왔을 때 기본적으로 문자열로 오는데 생긴게 json이라면 자바스크립트 오브젝트로 변경
+		}).done(function(resp){
+			console.log(resp);
+			alert("댓글 작성 완료");
+			location.href=`/board/${data.boardid}`;
+		}).fail(function(error){
+			console.log(error);
+			alert(JSON.stringify(error));
+		}); 
+	},
+	
+	replyDelete: function(boardid,replyid){
+
+		$.ajax({
+			type:"delete",
+			url:`/api/board/${boardid}/reply/${replyid}`,
+			dataType: "json" //요청을 서버로 해서 응답이 왔을 때 기본적으로 문자열로 오는데 생긴게 json이라면 자바스크립트 오브젝트로 변경
+		}).done(function(resp){
+			console.log(resp);
+			alert("댓글 삭제 완료");
+			location.href=`/board/${boardid}`;
+		}).fail(function(error){
+			console.log(error);
 			alert(JSON.stringify(error));
 		}); 
 	}
